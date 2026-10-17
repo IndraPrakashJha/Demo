@@ -1,0 +1,89 @@
+# IRON_CONDOR_V1 configuration. Copy to config/iron_condor_v1.local.toml (gitignored) and edit.
+#
+# The fixed strategy rules are NOT configurable here (see strategies/iron_condor_v1.py SPEC):
+#   entry 10:00 IST (max 60 s late), exit 15:25 IST, deltas 0.05 / 0.25 / 0.25 / 0.05,
+#   90% allocation ceiling, +0.25% target and -0.50% stop on the approved basket margin.
+
+# "shadow" = genuine Kite market data + simulated orders; "live" = real orders (guarded);
+# "backtest" = historical replay via `oss backtest`.
+mode = "shadow"
+
+[strategy]
+name = "IRON_CONDOR_V1"
+min_days_to_expiry = 10
+short_delta_tolerance = 0.05
+long_delta_tolerance = 0.03
+risk_free_rate = 0.06
+strike_window_pct = 0.15
+max_spread_abs = 0.5
+max_spread_pct = 0.05
+max_quote_age_seconds = 30.0
+mark_method = "exit_side"           # or "mid"
+monitor_interval_seconds = 5.0
+max_consecutive_mark_failures = 12
+mtm_journal_interval_seconds = 60.0
+max_units = 0                       # 0 = funds-based sizing only
+holidays = []                       # NSE trading holidays, e.g. ["2026-11-10"]
+
+[execution]
+product = "NRML"
+limit_buffer_pct = 0.02
+retry_buffer_step_pct = 0.03
+fill_timeout_seconds = 20.0
+poll_interval_seconds = 1.0
+cancel_confirm_timeout_seconds = 10.0
+unknown_order_reconcile_seconds = 15.0
+position_sync_timeout_seconds = 15.0
+max_rebalance_attempts = 5
+rebalance_retry_seconds = 3.0
+max_order_lots = 20                 # keep max_order_lots * lot_size below the NSE freeze quantity
+tag_prefix = "IC1"
+
+[costs]                              # verify against Zerodha's current charges page
+brokerage_per_order = 20.0
+stt_sell_rate = 0.0015
+exchange_txn_rate = 0.0003503
+sebi_rate = 0.000001
+stamp_buy_rate = 0.00003
+gst_rate = 0.18
+
+[simulation]                         # shadow-mode hypothetical fills
+fill_model = "depth"
+slippage_pct = 0.0
+slippage_ticks = 0
+
+[kite]
+api_key_env = "KITE_API_KEY"
+api_secret_env = "KITE_API_SECRET"
+access_token_env = "KITE_ACCESS_TOKEN"
+access_token_file = "runs/.kite_access_token"
+exchange = "NFO"
+underlying_quote_key = "NSE:NIFTY 50"
+funds_field = "net"
+margin_consider_positions = false
+
+[paths]
+run_dir = "runs"
+
+[alerts]
+webhook_url_env = "OSS_ALERT_WEBHOOK_URL"
+
+[live]
+enabled = false
+verification_file = "config/live_verification.json"
+
+[backtest]
+capital = 1000000.0
+lot_size = 65
+tick_size = 0.05
+bar_timestamp = "start"
+bar_seconds = 60
+max_bar_age_seconds = 180.0
+synthetic_spread_pct = 0.01
+fill_model = "touch"
+slippage_pct = 0.0
+slippage_ticks = 1
+margin_wing_factor = 1.0
+margin_exposure_pct = 0.0
+monitor_interval_seconds = 60.0
+session_start = "09:15:00"

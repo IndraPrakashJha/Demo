@@ -1,0 +1,16 @@
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.venv/
+build/
+dist/
+
+# Runtime output: journals, state, alerts, backtest reports, Kite tokens
+runs/
+*.access_token
+.kite_access_token
+
+# Real live-trading sign-off records stay out of version control
+config/live_verification.json
+config/*.local.toml
