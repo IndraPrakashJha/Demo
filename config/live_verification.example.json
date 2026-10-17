@@ -1,0 +1,20 @@
+{
+  "_comment": "Template only. Live trading stays blocked until a copy at config/live_verification.json records every check as passed, an explicit authorization, and OSS_LIVE_AUTHORIZATION matches authorization_code.",
+  "strategy": "IRON_CONDOR_V1",
+  "checks": {
+    "shadow_sessions_reviewed": {"passed": false, "verified_by": "", "verified_on": "", "evidence": ""},
+    "order_lifecycle_tested": {"passed": false, "verified_by": "", "verified_on": "", "evidence": ""},
+    "partial_fill_trim_and_unwind_tested": {"passed": false, "verified_by": "", "verified_on": "", "evidence": ""},
+    "unknown_order_outcome_reconciliation_tested": {"passed": false, "verified_by": "", "verified_on": "", "evidence": ""},
+    "flat_confirmation_tested": {"passed": false, "verified_by": "", "verified_on": "", "evidence": ""},
+    "manual_intervention_alerting_tested": {"passed": false, "verified_by": "", "verified_on": "", "evidence": ""},
+    "charges_and_margin_reconciled_with_contract_notes": {"passed": false, "verified_by": "", "verified_on": "", "evidence": ""},
+    "risk_limits_and_sizing_reviewed": {"passed": false, "verified_by": "", "verified_on": "", "evidence": ""}
+  },
+  "authorization": {
+    "authorized_by": "",
+    "authorized_on": "",
+    "valid_until": "",
+    "authorization_code": ""
+  }
+}

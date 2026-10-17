@@ -1,0 +1,25 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "option-selling-system"
+version = "0.1.0"
+description = "Option Selling System: IRON_CONDOR_V1 shadow trading and backtesting for NIFTY options via Zerodha Kite Connect"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = []
+
+[project.optional-dependencies]
+kite = ["kiteconnect>=5.0"]
+dev = ["pytest>=8", "kiteconnect>=5.0"]
+
+[project.scripts]
+oss = "option_selling.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]
